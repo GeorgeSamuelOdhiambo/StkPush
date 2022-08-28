@@ -6,6 +6,7 @@ const gethelper = require("../Routerslogic/Getlogics");
 
 
 router.get("/lipanampesa",Token,gethelper.lipaNaMpesaOnline);
+router.get("/",Token,gethelper.lipaNaMpesaOnline);
 
 
 module.exports = router;

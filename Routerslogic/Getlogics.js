@@ -6,17 +6,20 @@ let password = new Buffer.from(
 ).toString("base64");
 
 exports.lipaNaMpesaOnline = async (req, res) => {
+  let phoneNumber = 254110494133;
+  let amount = 1;
+
   let payload = {
     BusinessShortCode: process.env.SHORT_CODE,
     Password: password,
     Timestamp: timestamp,
     TransactionType: "CustomerPayBillOnline",
-    Amount: 1,
-    PartyA: 254110494133,
+    Amount: amount,
+    PartyA: phoneNumber,
     PartyB: process.env.SHORT_CODE,
-    PhoneNumber: 254110494133,
-    CallBackURL: "https://mydomain.com/pat",
-    AccountReference: "George STK",
+    PhoneNumber: phoneNumber,
+    CallBackURL: process.env.CALLBACK_URL,
+    AccountReference: process.env.SHORT_CODE,
     TransactionDesc: "Test",
   };
 

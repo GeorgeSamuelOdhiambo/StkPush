@@ -6,26 +6,25 @@ let password = new Buffer.from(
 ).toString("base64");
 
 exports.lipaNaMpesaOnline = async (req, res) => {
-  let phoneNumber = 254110494133;
-  let amount = 1;
-
+  let phoneNumber = req.body.phoneNumber;
   let payload = {
     BusinessShortCode: process.env.SHORT_CODE,
     Password: password,
     Timestamp: timestamp,
     TransactionType: "CustomerPayBillOnline",
-    Amount: amount,
+    Amount: req.body.amount,
     PartyA: phoneNumber,
     PartyB: process.env.SHORT_CODE,
     PhoneNumber: phoneNumber,
     CallBackURL: process.env.CALLBACK_URL,
-    AccountReference: process.env.SHORT_CODE,
+    AccountReference: "George Samuel",
     TransactionDesc: "Test",
   };
 
   try {
     let { data } = await axios.post(process.env.MPESA_URL, payload, {
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${req.token}`,
       },
     });

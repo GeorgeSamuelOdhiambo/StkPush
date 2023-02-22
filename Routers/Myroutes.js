@@ -2,11 +2,11 @@ const express = require("express");
 const router = express.Router();
 
 const Token = require("../Routerslogic/Token");
-const gethelper = require("../Routerslogic/Getlogics");
+const getHelper = require("../Routerslogic/Getlogics");
 
 
-router.get("/lipanampesa",Token,gethelper.lipaNaMpesaOnline);
-router.get("/",Token,gethelper.lipaNaMpesaOnline);
+router.get("/lipanampesa",Token,getHelper.lipaNaMpesaOnline);
+router.get("/",Token,getHelper.lipaNaMpesaOnline); 
 
 
 module.exports = router;

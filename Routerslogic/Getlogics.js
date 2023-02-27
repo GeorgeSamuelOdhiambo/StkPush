@@ -1,28 +1,29 @@
 const axios = require("axios");
+const { mp } = require("../config");
 
 let timestamp = new Date().toISOString().split(".")[0].replace(/[^\d]/gi, "");
 let password = new Buffer.from(
-  `${process.env.SHORT_CODE}${process.env.PASS_KEY}${timestamp}`
+  `${mp.SHORT_CODE}${mp.PASS_KEY}${timestamp}`
 ).toString("base64");
 
 exports.lipaNaMpesaOnline = async (req, res) => {
   let phoneNumber = req.body.phoneNumber;
   let payload = {
-    BusinessShortCode: process.env.SHORT_CODE,
+    BusinessShortCode: mp.SHORT_CODE,
     Password: password,
     Timestamp: timestamp,
     TransactionType: "CustomerPayBillOnline",
     Amount: req.body.amount,
     PartyA: phoneNumber,
-    PartyB: process.env.SHORT_CODE,
+    PartyB: mp.SHORT_CODE,
     PhoneNumber: phoneNumber,
-    CallBackURL: process.env.CALLBACK_URL,
+    CallBackURL: mp.CALLBACK_URL,
     AccountReference: "George Samuel",
     TransactionDesc: "Test",
   };
 
   try {
-    let { data } = await axios.post(process.env.MPESA_URL, payload, {
+    let { data } = await axios.post(mp.MPESA_URL, payload, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${req.token}`,

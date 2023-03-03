@@ -1,11 +1,11 @@
 const express = require("express");
-// const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const body_parser = require("body-parser");
 require("dotenv").config();
 const app = express();
 
 const router = require("./Routers/Myroutes");
-const { apps } = require("./config");
+const { apps,db } = require("./config");
 
 app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -24,23 +24,16 @@ app.use(function (req, res, next) {
 app.use(body_parser.json());
 app.use(router);
 
-app.listen(apps.PORT, (err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log(`App running on port : ${apps.PORT}`);
-  }
-});
-// mongoose
-//   .connect(process.env.DB_URL, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//   })
-//   .then((result) => {
-//     app.listen(PORT, () => {
-//       console.log(`App running on port : ${PORT}`);
-//     });
-//   })
-//   .catch((err) => {
-//     console.log("" + err);
-//   });
+mongoose
+  .connect(db.DB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then((result) => {
+    app.listen(apps.PORT, () => {
+      console.log(`App running on port : ${apps.PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log("" + err);
+  });

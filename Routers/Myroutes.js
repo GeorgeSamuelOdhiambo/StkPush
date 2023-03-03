@@ -2,11 +2,9 @@ const express = require("express");
 const router = express.Router();
 
 const Token = require("../Routerslogic/Token");
-const getHelper = require("../Routerslogic/Getlogics");
+const postHelper = require("../Routerslogic/Postroutelogic");
 
-
-router.get("/lipanampesa",Token,getHelper.lipaNaMpesaOnline);
-router.get("/",Token,getHelper.lipaNaMpesaOnline); 
-
+router.post("/lipanampesa", Token, postHelper.lipaNaMpesaOnline);
+router.post("/callbackUrl", postHelper.callmeback);
 
 module.exports = router;
